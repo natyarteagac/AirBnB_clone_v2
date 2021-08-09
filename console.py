@@ -128,11 +128,13 @@ class HBNBCommand(cmd.Cmd):
             kwargs = kwargs.split('=')
             if len(kwargs) > 1:
                 key = kwargs[0]
-                value = kwargs[1]
-                up_data = '{} {} {} {}'.format(
-                    args[0], str(new_instance.id), key, value)
-                if (Value[0] == '"'):
-                    self.do_update(up_string)
+                try:
+                    value = eval(kwargs[1])
+                except:
+                    continue
+                if(type(value) == str):
+                    value = value.replace('_', ' ')
+                setattr(new_instance, key, value)
 
         print(new_instance.id)
         storage.save()  # evaluar el miercoles este save
