@@ -130,7 +130,7 @@ class HBNBCommand(cmd.Cmd):
                 key = kwargs[0]
                 try:
                     value = eval(kwargs[1])
-                except:
+                except Exception:
                     continue
                 if(type(value) == str):
                     value = value.replace('_', ' ')
