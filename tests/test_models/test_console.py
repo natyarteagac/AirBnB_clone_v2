@@ -27,10 +27,15 @@ class test_console(unittest.TestCase):
             state_id_two = f2.getvalue()
             self.assertNotEqual(state_id_two, state_id)
 
-        def test_do_show(self):
-            """ Testing for show command """
-            with patch('sys.stdout', new=StringIO()) as f3:
-                HBNBCommand().onecmd("show State " + state_id)
-                show_state = f3.getvalue()
-                kwargs = "'name': natalia"
-                self.assertTrue(kwars, show_state)
+    def test_do_show(self):
+        """ Testing for show command """
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create State name=Alexander_Cardona")
+            state_id = f.getvalue()
+            self.assertTrue(len(state_id) >= 1)
+
+        with patch('sys.stdout', new=StringIO()) as f3:
+            HBNBCommand().onecmd("show State " + state_id)
+            show_state = f3.getvalue()
+            kwargs = "'name': natalia"
+            self.assertTrue(kwargs, show_state)
