@@ -17,12 +17,20 @@ class test_console(unittest.TestCase):
             state_id = f.getvalue()
             self.assertTrue(len(state_id) >= 1)
 
-        with patch('sys.stdout', new=StringIO()) as f:
+        with patch('sys.stdout', new=StringIO()) as f1:
             HBNBCommand().onecmd("create")
-            state_id = f.getvalue()
+            state_id_true = f.getvalue()
             self.assertTrue("** class doesn't exist **")
 
         with patch('sys.stdout', new=StringIO()) as f2:
             HBNBCommand().onecmd("create State name=Natalia")
             state_id_two = f2.getvalue()
             self.assertNotEqual(state_id_two, state_id)
+
+        def test_do_show(self):
+            """ Testing for show command """
+            with patch('sys.stdout', new=StringIO()) as f3:
+                HBNBCommand().onecmd("show State " + state_id)
+                show_state = f3.getvalue()
+                kwargs = "'name': natalia"
+                self.assertTrue(kwars, show_state)
