@@ -18,7 +18,7 @@ class FileStorage:
             new_dict = {}
             for key, value in FileStorage.__objects.items():
                 if type(value) == cls:
-                    new_dict[key] = value
+                    getattr(new_dict, value)
         return new_dict
 
     def new(self, obj):

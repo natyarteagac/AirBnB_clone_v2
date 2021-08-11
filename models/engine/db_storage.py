@@ -20,7 +20,7 @@ class DBStorage:
     __session = None
 
     def __init__(self):
-        """pass"""
+        """Creating the engine"""
         self.__engine = create_engine("mysql+mysqldb://{}:{}@{}/{}".
                                       format(getenv("HBNB_MYSQL_USER"),
                                              getenv("HBNB_MYSQL_PWD"),
@@ -30,20 +30,28 @@ class DBStorage:
         if getenv("HBNB_ENV") == "test":
             Base.metadata.drop_all(self.__engine)
 
-    def all(self, cls=None):
-        """pass"""
         Session = sessionmaker(self.__engine)
         self.__session = Session()
 
+        classes = {'State': State, 'City': City}
+
+    def all(self, cls=None):
+        """Takes the required query from created classes"""
+        list_class = []
+        new_dict = {}
+
         if cls is None:
-            state_id = session.query(
+            list_class = session.query(
                 User, State, City, Amenity, Place, Review).all()
+            for key, value in all_states:
+                new_dict.append(all_states)
+
         else:
             cls = eval(cls)
-            new_dict = {}
-            for alt_cls in session.query(cls).all():
-                key = "{}.{}".format(alt_cls.name, alt_cls.id)
-                new_dict.append(key, alt_cls)
+            list_class = session.query(cls).all()
+            for objects in list_class:
+                new_dict.update(
+                    {objects.__class__.__name__ + "." + obj.id: objects})
 
         return new_dict
 
