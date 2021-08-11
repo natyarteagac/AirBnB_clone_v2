@@ -4,13 +4,13 @@
 from os import getenv
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
-from models.amenity import Amenity
-from models.base_model import BaseModel
-from models.city import City
-from models.place import Place
-from models.review import Review
-from models.state import State
-from models.user import User
+#from models.amenity import Amenity
+#from models.base_model import BaseModel
+#from models.city import City
+#from models.place import Place
+#from models.review import Review
+#from models.state import State
+#from models.user import User
 
 
 class DBStorage:
@@ -29,11 +29,6 @@ class DBStorage:
                                       pool_pre_ping=True)
         if getenv("HBNB_ENV") == "test":
             Base.metadata.drop_all(self.__engine)
-
-        Session = sessionmaker(self.__engine)
-        self.__session = Session()
-
-        classes = {'State': State, 'City': City}
 
     def all(self, cls=None):
         """Takes the required query from created classes"""
@@ -74,13 +69,13 @@ class DBStorage:
         """Create a session"""
         from sqlalchemy.orm import sessionmaker, scoped_session
         from sqlalchemy import create_engine
-        from models.amenity import Amenity
-        from models.base_model import BaseModel
+        #from models.amenity import Amenity
+        from models.base_model import BaseModel, Base
         from models.city import City
-        from models.place import Place
-        from models.review import Review
+        #from models.place import Place
+        #from models.review import Review
         from models.state import State
-        from models.user import User
+        #from models.user import User
 
         Base.metadata.create_all(self.__engine)
         Session = scoped_session(sessionmaker
