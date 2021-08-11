@@ -4,13 +4,13 @@
 from os import getenv
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
-#from models.amenity import Amenity
-#from models.base_model import BaseModel
-#from models.city import City
-#from models.place import Place
-#from models.review import Review
-#from models.state import State
-#from models.user import User
+from models.amenity import Amenity
+from models.base_model import BaseModel
+from models.city import City
+from models.place import Place
+from models.review import Review
+from models.state import State
+from models.user import User
 
 
 class DBStorage:
@@ -32,14 +32,13 @@ class DBStorage:
 
     def all(self, cls=None):
         """Takes the required query from created classes"""
-        list_class = []
         new_dict = {}
 
         if cls is None:
             list_class = session.query(
                 User, State, City, Amenity, Place, Review).all()
-            for key, value in all_states:
-                new_dict.append(all_states)
+            for key, value in list_class:
+                new_dict.append(list_class)
 
         else:
             cls = eval(cls)
@@ -47,7 +46,6 @@ class DBStorage:
             for objects in list_class:
                 new_dict.update(
                     {objects.__class__.__name__ + "." + obj.id: objects})
-
         return new_dict
 
     def new(self, obj):
@@ -69,13 +67,13 @@ class DBStorage:
         """Create a session"""
         from sqlalchemy.orm import sessionmaker, scoped_session
         from sqlalchemy import create_engine
-        #from models.amenity import Amenity
+        from models.amenity import Amenity
         from models.base_model import BaseModel, Base
         from models.city import City
-        #from models.place import Place
-        #from models.review import Review
+        from models.place import Place
+        from models.review import Review
         from models.state import State
-        #from models.user import User
+        from models.user import User
 
         Base.metadata.create_all(self.__engine)
         Session = scoped_session(sessionmaker
