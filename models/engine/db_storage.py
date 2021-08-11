@@ -56,18 +56,33 @@ class DBStorage:
         return new_dict
 
     def new(self, obj):
-        """pass"""
-        pass
+        """Create a new of object to the current database session"""
+        self.__session.add(obj)
 
     def save(self):
-        """pass"""
-        session.add()
-        session.commit()
+        """Commit the changes of the current database session"""
+        self.__session.commit()
 
     def delete(self, obj=None):
-        """pass"""
-        pass
+        """Delete the object if is not none"""
+        if obj:
+            self.__session.delete(obj)
+        else:
+            return
 
     def reload(self):
-        """pass"""
-        pass
+        """Create a session"""
+        from sqlalchemy.orm import sessionmaker, scoped_session
+        from sqlalchemy import create_engine
+        from models.amenity import Amenity
+        from models.base_model import BaseModel
+        from models.city import City
+        from models.place import Place
+        from models.review import Review
+        from models.state import State
+        from models.user import User
+
+        Base.metadata.create_all(self.__engine)
+        Session = scoped_session(sessionmaker
+                                 (self.__engine, expire_on_commit=False))
+        self.__session = Session()
