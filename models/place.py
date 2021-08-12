@@ -2,14 +2,25 @@
 """ Place Module for HBNB project """
 from models.base_model import BaseModel, Base
 from models.review import Review
+from models.amenity import Amenity
 from os import getenv
 from sqlalchemy import Column, Integer, String, Float, ForeignKey
 from sqlalchemy.orm import relationship, backref
+from sqlalchemy import *
+
+another_table = Table('place_amenity', Base.metadata,
+                      Column('place_id', String(60), ForeignKey(
+                          "places.id"), primary_key=True, nullable=False),
+                      Column('amenity_id', String(60), ForeignKey(
+                          "amenities.id"), primary_key=True, nullable=False)
+                      )
 
 
 class Place(BaseModel, Base):
     """ A place to stay """
     __tablename__ = "places"
+
+    place_amenity
 
     city_id = Column(String(60), ForeignKey("cities.id"), nullable=False)
     user_id = Column(String(60), ForeignKey("users.id"), nullable=False)
@@ -31,6 +42,22 @@ class Place(BaseModel, Base):
                 if (reviews.place_id) == self.id:
                     list_reviews.append(reviews)
             return list_reviews
+
+        @property
+        def amenities(self):
+            list_amenities = []
+            for amenity in all(Amenity).values():
+                if (amenity.place_id) == self.id:
+                    list_amenities.append(amenity)
+            return list_amenities
+
+        @amenities.setter
+        def amenities(self, obj):
+            if (obj.__class__ == Amenity):
+                self.amenity_ids.append(Amenity.id)
+
     else:
         reviews = relationship("Review", backref="place",
                                cascade="all, delete", passive_deletes=True)
+        amenities = relationship(
+            "Amenity", secundary="place_amenity", viewonly=False)
