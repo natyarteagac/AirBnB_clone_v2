@@ -8,7 +8,7 @@ from sqlalchemy import Column, Integer, String, Float, ForeignKey
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy import *
 
-another_table = Table('place_amenity', Base.metadata,
+place_amenity = Table('place_amenity', Base.metadata,
                       Column('place_id', String(60), ForeignKey(
                           "places.id"), primary_key=True, nullable=False),
                       Column('amenity_id', String(60), ForeignKey(
@@ -60,4 +60,4 @@ class Place(BaseModel, Base):
         reviews = relationship("Review", backref="place",
                                cascade="all, delete", passive_deletes=True)
         amenities = relationship(
-            "Amenity", secundary="place_amenity", viewonly=False)
+            "Amenity", secondary="place_amenity", viewonly=False)
