@@ -6,8 +6,6 @@
 if [ ! -x /usr/sbin/nginx ]
 then
     sudo apt-get -y install nginx
-else
-    :
 fi
 # Creating if doesn't exists
 sudo mkdir -p /data/web_static/releases/test/
