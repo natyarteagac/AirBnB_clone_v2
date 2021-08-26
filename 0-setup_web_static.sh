@@ -3,12 +3,8 @@
 # of web_static
 
 # If nginx is not installed do it.
-if [ ! -x /usr/sbin/nginx ]
-then
-    sudo apt-get -y install nginx
-else
-    :
-fi
+sudo apt-get -y update
+sudo apt-get -y install nginx
 sudo service nginx start
 # Creating if doesn't exists
 sudo mkdir -p /data/web_static/releases/test/
