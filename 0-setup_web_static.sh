@@ -1,17 +1,14 @@
 #!/usr/bin/env bash
 # Script that sets the web serves for the deployment
-# of web_static
 
-# Updating server
-sudo apt-get -y update
-# Upgrading server
-sudo apt-get -y upgrade
-# Installing nginx
-sudo apt-get -y install nginx
-# Starting nginx
-sudo service nginx start
-# Giving permissions
-sudo chmod 777 /var/www/html/index.nginx-debian.html
+# Install Nginx if it not already installed
+if ! dpkg -s nginx  > /dev/null
+then
+	apt-get -y update
+	apt-get -y upgrade
+	apt-get -y install nginx
+fi
+
 # Writing the string on the index.nginx-debian.html
 echo "Holberton School" | sudo tee /var/www/html/index.nginx-debian.html
 # Redirecting
@@ -28,6 +25,7 @@ sudo mkdir -p /data/web_static/releases/test/
 sudo mkdir -p /data/web_static/shared/
 # Creating symbolic link
 sudo ln -sf /data/web_static/releases/test/ /data/web_static/current
+# Giving ownership of data to ubuntu and group
 sudo chown -R ubuntu:ubuntu /data/
 # Creating an alias
 sudo sed -i "/:80 default_server;/ a \\\n\tlocation /hbnb_static/ {\n\talias /data/web_static/current/;\n\tautoindex off;\n\t}/" /etc/nginx/sites-available/default
