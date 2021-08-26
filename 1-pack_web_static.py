@@ -13,6 +13,7 @@ def do_pack():
     name_of_file = "web_static_" + hour + ".tgz"
     try:
         print("Packing web_static to versions/{}".format(name_of_file))
+        local("mkdir -p versions")
         local("tar -cvzf versions/{} web_static".format(name_of_file))
     except:
         return None
