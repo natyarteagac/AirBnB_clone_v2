@@ -9,6 +9,7 @@ then
 else
     :
 fi
+sudo service nginx start
 # Creating if doesn't exists
 sudo mkdir -p /data/web_static/releases/test/
 sudo mkdir -p /data/web_static/shared/
@@ -18,6 +19,6 @@ echo "Holberton School" | sudo tee /data/web_static/releases/test/index.html
 sudo ln -sf /data/web_static/releases/test/ /data/web_static/current
 sudo chown -R ubuntu:ubuntu /data/
 # Creating an alias
-sudo sed -i "/:80 default_server;/ a \\\n\tlocation /hbnb_static/ {\n\talias /data/web_static/current/;\n\tautoindex off;\n\t}" /etc/nginx/sites-enabled/default
+sudo sed -i "/:80 default_server;/ a \\\n\tlocation /hbnb_static/ {\n\talias /data/web_static/current/;\n\tautoindex off;\n\t}/" /etc/nginx/sites-available/default
 # Restarting nginx
 sudo service nginx restart
