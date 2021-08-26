@@ -15,11 +15,11 @@ sudo chmod 777 /var/www/html/index.nginx-debian.html
 # Writing the string on the index.nginx-debian.html
 echo "Holberton School" | sudo tee /var/www/html/index.nginx-debian.html
 # Redirecting
-sudo sed -i '/server_name _;/ a \\trewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;' /etc/nginx/sites-enabled/default
+sudo sed -i '/server_name _;/ a \\trewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;' /etc/nginx/sites-available/default
 # Creating file custom_404.html with string
 echo "Ceci n'est pas une page" | sudo tee /usr/share/nginx/html/custom_404.html
 # Appending information in default file
-sudo sed -i "20i \\\terror_page 404 /custom_404.html;\n\tlocation = /custom_404.html {\n\t root /usr/share/nginx/html;\n\tinternal;\n\t}" /etc/nginx/sites-enabled/default
+sudo sed -i "20i \\\terror_page 404 /custom_404.html;\n\tlocation = /custom_404.html {\n\t root /usr/share/nginx/html;\n\tinternal;\n\t}" /etc/nginx/sites-available/default
 # Creating the file index.html
 echo "Holberton School" | sudo tee /data/web_static/releases/test/index.html
 # Creating if doesn't exists
