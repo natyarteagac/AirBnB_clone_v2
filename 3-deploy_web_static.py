@@ -25,24 +25,22 @@ def do_deploy(archive_path):
 
     if path.isfile(archive_path) is False:
         return False
-    archive_token = archive_path.split("/")[-1]
-    archive_tokenized = archive_token.split(".")[0]
+    file_token_one = archive_path.split("/")[-1]
+    file_token_two = archive_token.split(".")[0]
+    path_tokenized = ("/data/web_static/releases/" +
+                      archive_token.split(".")[0])
     try:
         put(archive_path, '/tmp/')
-        run("sudo mkdir -p /data/web_static/releases/{}".format(archive_tokenized))
-        run("sudo tar -xzf /tmp/{} -C /data/web_static/releases/{}".format(
-            archive_token, archive_tokenized))
-        run("sudo rm /tmp/{}".format(archive_token))
-        run(
-            "sudo mv /data/web_static/releases/{}/web_static/* \
-                /data/web_static/releases/{}/".format(
-                archive_tokenized, archive_tokenized))
-        run(
-            "sudo rm -rf /data/web_static/releases/{}/web_static/".format(
-                archive_tokenized))
+        run("sudo mkdir -p {}".format(path_tokenized))
+        run("sudo tar -xzf /tmp/{} -C {}}".format(
+            file_token_two, path_tokenized))
+        run("sudo rm /tmp/{}".format(file_token_two))
+        run("sudo mv {}/web_static/* {}/".format(
+            file_tokenized, path_tokenized))
+        run("sudo rm -rf {}/web_static/".format(
+            path_tokenized))
         run("sudo rm -rf /data/web_static/current")
-        run("sudo ln -s /data/web_static/releases/{} \
-            /data/web_static/current".format(archive_tokenized))
+        run("sudo ln -s {} /data/web_static/current".format(path_tokenized))
         return True
     except:
         return False
