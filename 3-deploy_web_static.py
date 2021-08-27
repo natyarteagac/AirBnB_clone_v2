@@ -52,6 +52,6 @@ def deploy():
     try:
         archive_path = do_pack()
         answer = do_deploy(archive_path)
-        return answer
+        return (answer + ".tgz")
     except:
         return False
