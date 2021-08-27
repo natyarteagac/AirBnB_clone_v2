@@ -2,6 +2,7 @@
 """ Fabric scrit that creates and distributes an archive you the
 web server using the function"""
 
+from datetime import datetime
 from os import path
 from fabric.api import local, put, run, env
 env.hosts = ['34.139.140.249', '100.26.46.66']
@@ -12,7 +13,6 @@ def do_pack():
     hour = datetime.now().strftime('%Y%m%dT%H%M%S')
     name_of_file = "web_static_" + hour + ".tgz"
     try:
-        print("Packing web_static to versions/{}".format(name_of_file))
         local("mkdir -p versions")
         local("tar -cvzf versions/{} web_static".format(name_of_file))
         return "versions/{}".format(name_of_file)
@@ -29,19 +29,19 @@ def do_deploy(archive_path):
     archive_tokenized = archive_token.split(".")[0]
     try:
         put(archive_path, '/tmp/')
-        run("mkdir -p /data/web_static/releases/{}".format(archive_tokenized))
-        run("tar -xzf /tmp/{} -C /data/web_static/releases/{}".format(
+        run("sudo mkdir -p /data/web_static/releases/{}".format(archive_tokenized))
+        run("sudo tar -xzf /tmp/{} -C /data/web_static/releases/{}".format(
             archive_token, archive_tokenized))
-        run("rm /tmp/{}".format(archive_token))
+        run("sudo rm /tmp/{}".format(archive_token))
         run(
-            "mv /data/web_static/releases/{}/web_static/* \
+            "sudo mv /data/web_static/releases/{}/web_static/* \
                 /data/web_static/releases/{}/".format(
                 archive_tokenized, archive_tokenized))
         run(
-            "rm -rf /data/web_static/releases/{}/web_static/".format(
+            "sudo rm -rf /data/web_static/releases/{}/web_static/".format(
                 archive_tokenized))
-        run("rm -rf /data/web_static/current")
-        run("ln -s /data/web_static/releases/{} \
+        run("sudo rm -rf /data/web_static/current")
+        run("sudo ln -s /data/web_static/releases/{} \
             /data/web_static/current".format(archive_tokenized))
         return True
     except:
@@ -50,9 +50,10 @@ def do_deploy(archive_path):
 
 def deploy():
     """Using the last created functions"""
+
     try:
         archive_path = do_pack()
         answer = do_deploy(archive_path)
-        return (answer)
+        return answer
     except:
         return False
