@@ -15,6 +15,7 @@ def do_pack():
         print("Packing web_static to versions/{}".format(name_of_file))
         local("mkdir -p versions")
         local("tar -cvzf versions/{} web_static".format(name_of_file))
+        return "versions/{}web_static".format(name_of_file)
     except:
         return None
 
@@ -51,7 +52,7 @@ def deploy():
     """Using the last created functions"""
     try:
         archive_path = do_pack()
-        answer = do_deploy(archive_path + ".tgz")
+        answer = do_deploy(archive_path)
         return (answer)
     except:
         return False
