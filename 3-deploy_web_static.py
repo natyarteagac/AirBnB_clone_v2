@@ -50,8 +50,8 @@ def do_deploy(archive_path):
 def deploy():
     """Using the last created functions"""
     try:
-        new_file = do_pack()
-        answer = do_deploy(new_file)
+        archive_path = do_pack()
+        answer = do_deploy(archive_path)
         return answer
     except:
         return False
