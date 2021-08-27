@@ -51,7 +51,7 @@ def deploy():
     """Using the last created functions"""
     try:
         archive_path = do_pack()
-        answer = do_deploy(archive_path + "tgz")
+        answer = do_deploy(archive_path + ".tgz")
         return (answer)
     except:
         return False
