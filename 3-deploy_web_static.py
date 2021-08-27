@@ -22,12 +22,12 @@ def do_pack():
 def do_deploy(archive_path):
     """Distributes an archive to the web server """
 
-    if not path.exists(archive_path):
+    if path.isfile(archive_path) is False:
         return False
+    archive_token = archive_path.split("/")[-1]
+    archive_tokenized = archive_token.split(".")[0]
     try:
         put(archive_path, '/tmp/')
-        archive_token = archive_path.split("/")[-1]
-        archive_tokenized = archive_token.split(".")[0]
         run("mkdir -p /data/web_static/releases/{}".format(archive_tokenized))
         run("tar -xzf /tmp/{} -C /data/web_static/releases/{}".format(
             archive_token, archive_tokenized))
