@@ -13,7 +13,7 @@ sudo mkdir -p /data/web_static/releases/test/
 sudo mkdir -p /data/web_static/shared/
 # Creating the file index.html
 touch /data/web_static/releases/test/index.html
-echo "Holberton School" > /data/web_static/releases/test/index.html
+echo "Created succesfully" > /data/web_static/releases/test/index.html
 # Creating symbolic link
 sudo ln -sf /data/web_static/releases/test/ /data/web_static/current
 # Giving ownership of data to ubuntu and group
