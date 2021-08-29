@@ -32,7 +32,7 @@ def do_deploy(archive_path):
     try:
         put(archive_path, '/tmp/')
         run("sudo mkdir -p {}".format(path_tokenized))
-        run("sudo tar -xzf /tmp/{} -C {}}".format(
+        run("sudo tar -xzf /tmp/{} -C {}".format(
             file_token_two, path_tokenized))
         run("sudo rm /tmp/{}".format(file_token_two))
         run("sudo mv {}/web_static/* {}/".format(
