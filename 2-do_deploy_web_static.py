@@ -17,8 +17,7 @@ def do_deploy(archive_path):
     file_token_one = archive_path.split("/")[-1]
     file_token_two = file_token_one.split(".")[0]
     path_tokenized = ("/data/web_static/releases/" +
-                    file_token_two.split(".")[0])
-    print(file_token_one)
+                      file_token_two.split(".")[0])
     try:
         put(archive_path, '/tmp/')
         run("sudo mkdir -p {}".format(path_tokenized))
