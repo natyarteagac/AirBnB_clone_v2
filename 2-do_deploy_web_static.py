@@ -17,11 +17,12 @@ def do_deploy(archive_path):
     file_token_one = archive_path.split("/")[-1]
     file_token_two = file_token_one.split(".")[0]
     path_tokenized = ("/data/web_static/releases/" +
-                      file_token_two.split(".")[0])
+                    file_token_two.split(".")[0])
+    print(file_token_one)
     try:
         put(archive_path, '/tmp/')
         run("sudo mkdir -p {}".format(path_tokenized))
-        run("sudo tar -xzf /tmp/{} -C {}}".format(
+        run("sudo tar -xzf /tmp/{} -C {}".format(
             file_token_one, path_tokenized))
         run("sudo rm /tmp/{}".format(file_token_one))
         run("sudo mv {}/web_static/* {}/".format(
