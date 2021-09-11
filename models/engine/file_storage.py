@@ -66,3 +66,7 @@ class FileStorage:
             jsondata = FileStorage.__objects
             object_to_delete = obj.to_dict()['__class__'] + '.' + obj.id
             del jsondata[object_to_delete]
+
+    def close(self):
+        """ Close """
+        self.reload()
