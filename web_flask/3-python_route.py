@@ -1,7 +1,7 @@
-from flask import Flask, escape
+#!/usr/bin/python3
 """ Creating the first Flask Application
 """
-
+from flask import Flask, escape
 app = Flask(__name__)
 
 
