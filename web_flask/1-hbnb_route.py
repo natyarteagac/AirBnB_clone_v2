@@ -1,18 +1,18 @@
-from flask import Flask
+#!/usr/bin/python3
 """ Creating the first Flask Application
 """
+from flask import Flask
 
 app = Flask(__name__)
-app.url_map.strict_slashes = False
 
 
-@app.route('/')
+@app.route('/', strict_slashes=False)
 def hello_route():
     """ Returning the string Hello HBNB!"""
     return 'Hello HBNB!'
 
 
-@app.route('/hbnb')
+@app.route('/hbnb', strict_slashes=False)
 def hbnb():
     """ Returning the string HBNB"""
     return 'HBNB'
