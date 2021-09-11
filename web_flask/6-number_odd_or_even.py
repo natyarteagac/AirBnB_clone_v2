@@ -1,6 +1,8 @@
-from flask import Flask, escape, render_template
+#!/usr/bin/python3
 """ Creating the first Flask Application
 """
+
+from flask import Flask, escape, render_template
 
 app = Flask(__name__)
 
