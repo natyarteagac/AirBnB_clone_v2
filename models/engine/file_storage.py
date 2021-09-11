@@ -68,5 +68,5 @@ class FileStorage:
             del jsondata[object_to_delete]
 
     def close(self):
-        """ Close """
+        """ Call the reload method """
         self.reload()
