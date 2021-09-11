@@ -10,7 +10,7 @@ class FileStorage:
 
     def all(self, cls=None):
         """ Return a new list of one class"""
-        if cls == None:
+        if cls is None:
             return FileStorage.__objects
         else:
             if type(cls) == str:
@@ -60,7 +60,7 @@ class FileStorage:
 
     def delete(self, obj=None):
         """Delete an object from __objects"""
-        if obj == None:
+        if obj is None:
             return
         else:
             jsondata = FileStorage.__objects
