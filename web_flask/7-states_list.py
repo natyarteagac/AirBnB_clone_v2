@@ -1,13 +1,14 @@
 #!/usr/bin/python3
 """ List of cities """
 
+from models.state import State
 from models import storage
 from flask import Flask, render_template
 app = Flask(__name__)
 elements = storage.all()
 
 
-@app.route('/states_list')
+@app.route('/states_list', strict_slashes=False)
 def states_list(elements):
     """ Returns HTML with query """
     return render_template('7-states_list.html', elements=elements)
